@@ -10,19 +10,19 @@ CONFIG += c++17
 
 SOURCES += \
     MathPendulum.cpp \
+    SpringPendulum.cpp \
     main.cpp \
-    mainwindow.cpp \
-    springpendulum.cpp
+    mainwindow.cpp
 
 HEADERS += \
     MathPendulum.h \
-    mainwindow.h \
-    springpendulum.h
+    SpringPendulum.h \
+    mainwindow.h
 
 FORMS += \
     MathPendulum.ui \
-    mainwindow.ui \
-    springpendulum.ui
+    SpringPendulum.ui \
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

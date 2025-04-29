@@ -3,8 +3,7 @@
 
 #include <QMainWindow>
 #include "MathPendulum.h"
-#include "springpendulum.h"
-
+#include "SpringPendulum.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -25,9 +24,11 @@ public:
 
 private slots:
     void on_MathButtoon_clicked();
+    void on_SprPenButton_clicked();
 
 private:
     Ui::MainWindow *ui;
     MathPendulum *mathpen;
+    SpringPendulum *springpen;
 };
-#endif // MAINWINDOW_H
+#endif

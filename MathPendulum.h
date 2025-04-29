@@ -24,21 +24,32 @@ protected:
 private:
     Ui::MathPendulum *ui;
     QMenuBar *menuBar;
-    QPropertyAnimation *animation;
     QTimer *timer;
 
     // Параметры маятника
+    double initialAngle = 0.0;
+    double initialPeriod = 0.0;
+    double totalMechanicalEnergy = 0.0;
+    double maxPotentialEnergy = 0.0;
+    double maxKineticEnergy = 0.0;
+    double maxMechanicalEnergy = 0.0;
     double DEFAULT_Y_OFFSET = 10.0;
-    double length = 10.0;  // Длина для отображения
-    double lengthForCalculations = 10.0;  // Длина для расчетов (если больше 50, используется она)
+    double length = 10.0;
+    double lengthForCalculations = 10;
     double angle = 0.0;
     double mass = 1.0;
     double angularVelocity = 0.0;
     bool isAnimating = false;
+    bool airFrictionEnabled = false;
 
-    const double gravity = 9.81;  // Ускорение свободного падения (м/с^2)
+    // Физические константы
+    const double gravity = 9.81;
+    const double DEG_TO_RAD = M_PI / 180.0;
+    const double RAD_TO_DEG = 180.0 / M_PI;
+    const int supportHeight = 80;
+    const double airFrictionCoeff = 0.02;
 
-    // Методы для расчета значений
+    // Методы расчетов
     double calculateHeight();
     double calculateCurrentKineticEnergy();
     double calculateCurrentPotentialEnergy();
@@ -46,29 +57,26 @@ private:
     double calculateVelocity();
     double calculateAmplitude();
 
-    // Метод для обновления отображения маятника
+    // Вспомогательные методы
     void updatePendulum();
-
-    // Метод для включения/отключения полей ввода
     void setInputsEnabled(bool enabled);
-
-    // Метод для старта анимации
     void startAnimation();
-
-    // Метод для обновления значений в интерфейсе
     void updateOutputValues();
 
 private slots:
+    // Слоты для кнопок
     void on_ButtonOKLength_clicked();
     void on_ButtonResetLength_clicked();
     void on_ButtonOKAngle_clicked();
     void on_ButtonResetAngle_clicked();
     void on_ButtonOKMass_clicked();
     void on_ButtonResetMass_clicked();
+    void on_ButtonOKAirFriction_clicked();
+    void on_ButtonOffAirFriction_clicked();
     void on_actionStart_triggered();
     void on_actionPause_triggered();
     void on_actionReset_triggered();
     void updateAnimation();
 };
 
-#endif // MATHPENDULUM_H
+#endif

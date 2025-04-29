@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MathPendulum</class>
- <widget class="QWidget" name="MathPendulum">
-  <property name="enabled">
-   <bool>true</bool>
-  </property>
+ <class>SpringPendulum</class>
+ <widget class="QWidget" name="SpringPendulum">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1687</width>
-    <height>932</height>
+    <width>1605</width>
+    <height>987</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MathPendulum</string>
+   <string>SpringPendulum</string>
   </property>
   <widget class="QGroupBox" name="PendulumSettings">
    <property name="geometry">
@@ -94,9 +91,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <enum>QLayout::SizeConstraint::SetMaximumSize</enum>
          </property>
          <item>
-          <widget class="QLabel" name="AngleInp">
+          <widget class="QLabel" name="PositionInp">
            <property name="text">
-            <string>    Angle:</string>
+            <string>Position (0,-y):</string>
            </property>
           </widget>
          </item>
@@ -106,7 +103,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
             <number>7</number>
            </property>
            <item>
-            <widget class="QTextEdit" name="AngleInpEdit">
+            <widget class="QTextEdit" name="PositionInpEdit">
              <property name="verticalScrollBarPolicy">
               <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
              </property>
@@ -128,14 +125,14 @@ li.checked::marker { content: &quot;\2612&quot;; }
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
-              <widget class="QPushButton" name="ButtonOKAngle">
+              <widget class="QPushButton" name="ButtonOKPosition">
                <property name="text">
                 <string>OK</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="ButtonResetAngle">
+              <widget class="QPushButton" name="ButtonResetPosition">
                <property name="text">
                 <string>Reset</string>
                </property>
@@ -153,16 +150,16 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <enum>QLayout::SizeConstraint::SetNoConstraint</enum>
          </property>
          <item>
-          <widget class="QLabel" name="LengthInp">
+          <widget class="QLabel" name="ElasticityInp">
            <property name="text">
-            <string>    Length:</string>
+            <string>Elasticity:</string>
            </property>
           </widget>
          </item>
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
-            <widget class="QTextEdit" name="lengthInpEdit">
+            <widget class="QTextEdit" name="ElasticityInpEdit">
              <property name="verticalScrollBarPolicy">
               <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
              </property>
@@ -181,14 +178,14 @@ li.checked::marker { content: &quot;\2612&quot;; }
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
-              <widget class="QPushButton" name="ButtonOKLength">
+              <widget class="QPushButton" name="ButtonOKElasticity">
                <property name="text">
                 <string>OK</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="ButtonResetLength">
+              <widget class="QPushButton" name="ButtonResetElasticity">
                <property name="text">
                 <string>Reset</string>
                </property>
@@ -205,7 +202,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
          <item>
           <widget class="QLabel" name="AirFrictionInp">
            <property name="text">
-            <string>Air Friction:   </string>
+            <string> Air Friction:</string>
            </property>
           </widget>
          </item>
@@ -243,14 +240,14 @@ li.checked::marker { content: &quot;\2612&quot;; }
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_16">
            <item>
-            <widget class="QLabel" name="HighOut">
+            <widget class="QLabel" name="DisplacementOut">
              <property name="text">
-              <string>High:</string>
+              <string>Displacement:</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QTextBrowser" name="OutputHighValue">
+            <widget class="QTextBrowser" name="OutputDisplacementValue">
              <property name="verticalScrollBarPolicy">
               <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
              </property>
@@ -363,105 +360,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </item>
    </layout>
   </widget>
-  <widget class="QGroupBox" name="DefaultSettings">
-   <property name="geometry">
-    <rect>
-     <x>1350</x>
-     <y>10</y>
-     <width>170</width>
-     <height>150</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Default Settings:</string>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout_8">
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_21">
-      <item>
-       <widget class="QLabel" name="DefaultMass">
-        <property name="text">
-         <string>Mass:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QTextBrowser" name="DefaultValueMass">
-        <property name="verticalScrollBarPolicy">
-         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
-        </property>
-        <property name="html">
-         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-li.unchecked::marker { content: &quot;\2610&quot;; }
-li.checked::marker { content: &quot;\2612&quot;; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1 kg&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_20">
-      <item>
-       <widget class="QLabel" name="DefaultAngle">
-        <property name="text">
-         <string>Angle:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QTextBrowser" name="DefaultValueAngle">
-        <property name="verticalScrollBarPolicy">
-         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
-        </property>
-        <property name="html">
-         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-li.unchecked::marker { content: &quot;\2610&quot;; }
-li.checked::marker { content: &quot;\2612&quot;; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;0 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_19">
-      <item>
-       <widget class="QLabel" name="DefaultLength">
-        <property name="text">
-         <string>Length:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QTextBrowser" name="DefaultValueLength">
-        <property name="verticalScrollBarPolicy">
-         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
-        </property>
-        <property name="html">
-         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-li.unchecked::marker { content: &quot;\2610&quot;; }
-li.checked::marker { content: &quot;\2612&quot;; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;10 m&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-   </layout>
-  </widget>
   <widget class="QGroupBox" name="MaxValues">
    <property name="geometry">
     <rect>
@@ -510,7 +408,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="layoutWidget_2">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -546,7 +444,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="layoutWidget_3">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -567,6 +465,127 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QTextBrowser" name="OutputMechEnVlaue">
        <property name="verticalScrollBarPolicy">
         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="DefaultSettings">
+   <property name="geometry">
+    <rect>
+     <x>1309</x>
+     <y>10</y>
+     <width>211</width>
+     <height>150</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Default Settings:</string>
+   </property>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>138</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_21">
+     <item>
+      <widget class="QLabel" name="DefaultMass">
+       <property name="text">
+        <string>Mass:  </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="DefaultValueMass">
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="html">
+        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1 kg&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>185</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_20">
+     <item>
+      <widget class="QLabel" name="DefaultPosition">
+       <property name="text">
+        <string>Position (0,y): </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="DefaultValuePosition">
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="html">
+        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;0 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>155</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_19">
+     <item>
+      <widget class="QLabel" name="DefaultElasticity">
+       <property name="text">
+        <string>Elasticity:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="DefaultValueElasticity">
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="html">
+        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;10 H/m&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
