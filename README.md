@@ -1,2 +1,3 @@
 # PhysicalPendulums
-Spring and Mathematical pendulum
+
+The project is an application designed to simulate the oscillations of a pendulum. The program is written in C++ using Qt, and allows the user to study the dynamics of pendulum swings through real-time visualization. The application offers two types of pendulums to study: mathematical and spring pendulums. The user can set different physical parameters for each type of pendulum and observe how they affect its behavior.
