@@ -7,6 +7,8 @@
 #include <QTimer>
 #include <QLabel>
 
+class MainWindow;
+
 namespace Ui {
 class MathPendulum;
 }
@@ -41,6 +43,7 @@ private:
     double angularVelocity = 0.0;
     bool isAnimating = false;
     bool airFrictionEnabled = false;
+    bool isPaused = false;
 
     // Физические константы
     const double gravity = 9.81;
@@ -48,6 +51,10 @@ private:
     const double RAD_TO_DEG = 180.0 / M_PI;
     const int supportHeight = 80;
     const double airFrictionCoeff = 0.02;
+    const double MIN_MASS = pow(10,-6);
+    const double MAX_MASS = pow(10,6);
+    const double MIN_LENGTH = pow(10,-6);
+    const double MAX_LENGTH = pow(10,6);
 
     // Методы расчетов
     double calculateHeight();
@@ -73,9 +80,13 @@ private slots:
     void on_ButtonResetMass_clicked();
     void on_ButtonOKAirFriction_clicked();
     void on_ButtonOffAirFriction_clicked();
+
+    // Слоты для меню
     void on_actionStart_triggered();
     void on_actionPause_triggered();
     void on_actionReset_triggered();
+    void on_actionExit_triggered();
+
     void updateAnimation();
 };
 

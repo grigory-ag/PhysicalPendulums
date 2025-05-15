@@ -1,4 +1,5 @@
 #include "MathPendulum.h"
+#include "mainwindow.h"
 #include "ui_MathPendulum.h"
 #include <QMenuBar>
 #include <QMenu>
@@ -21,14 +22,18 @@ MathPendulum::MathPendulum(QWidget *parent) :
     QAction *startAction = new QAction("Start", this);
     QAction *pauseAction = new QAction("Pause", this);
     QAction *resetAction = new QAction("Reset", this);
+    QAction *exitAction = new QAction("Exit", this);
     fileMenu->addAction(startAction);
     fileMenu->addAction(pauseAction);
     fileMenu->addAction(resetAction);
+    fileMenu->addSeparator();
+    fileMenu->addAction(exitAction);
 
     // Подключение слотов к действиям меню
     connect(startAction, &QAction::triggered, this, &MathPendulum::on_actionStart_triggered);
     connect(pauseAction, &QAction::triggered, this, &MathPendulum::on_actionPause_triggered);
     connect(resetAction, &QAction::triggered, this, &MathPendulum::on_actionReset_triggered);
+    connect(exitAction, &QAction::triggered, this, &MathPendulum::on_actionExit_triggered);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setMenuBar(menuBar);
@@ -104,21 +109,37 @@ void MathPendulum::updatePendulum() {
 
 // Запуск анимации маятника
 void MathPendulum::startAnimation() {
+    if (timer->isActive() && !isPaused) {
+        return;
+    }
+
     setInputsEnabled(false);
 
+    if (qFuzzyIsNull(angle)) {
+        QMessageBox::warning(this, "Error", "Please enter angle value first!");
+        setInputsEnabled(true);
+        return;
+    }
+
     // Проверка диапазона длины для колебаний
-    if (lengthForCalculations < 0.05 || lengthForCalculations > 100.0) {
-        angularVelocity = 0.0; // Остановка движения
+    if (lengthForCalculations < 0.05 || lengthForCalculations > 1000.0) {
+        angularVelocity = 0.0;
         initialAngle = fabs(angle);
         initialPeriod = calculatePeriod();
         totalMechanicalEnergy = calculateCurrentPotentialEnergy();
 
-        ui->OutputPeriodValue->setText(QString::number(initialPeriod, 'f', 5));
+        ui->OutputPeriodValue->setText(QString::number(initialPeriod, 'f', 6));
         updateOutputValues();
         updatePendulum();
 
         QMessageBox::information(this, "Information",
-        "Pendulum length is outside the oscillation range [ 0.05, 100 ]. Oscillations are disabled.");
+        "Pendulum length is outside the oscillation range: [0.05;1000]. Oscillations are disabled.");
+        return;
+    }
+
+    if (isPaused) {
+        timer->start(16);
+        isPaused = false;
         return;
     }
 
@@ -126,7 +147,7 @@ void MathPendulum::startAnimation() {
     initialAngle = fabs(angle);
     initialPeriod = calculatePeriod();
     totalMechanicalEnergy = calculateCurrentPotentialEnergy();
-    ui->OutputPeriodValue->setText(QString::number(initialPeriod, 'f', 5));
+    ui->OutputPeriodValue->setText(QString::number(initialPeriod, 'f', 6));
     updateOutputValues();
     timer->start(16);
 }
@@ -196,16 +217,15 @@ void MathPendulum::updateOutputValues() {
     double currentPotentialEnergy = calculateCurrentPotentialEnergy();
     double currentKineticEnergy = calculateCurrentKineticEnergy();
 
-    ui->OutputGrEnValue->setText(QString::number(currentPotentialEnergy, 'f', 5));
-    ui->OutputKinEnValue->setText(QString::number(currentKineticEnergy, 'f', 5));
-    ui->OutputMechEnVlaue->setText(QString::number(totalMechanicalEnergy, 'f', 5));
-    ui->OutputVelosityValue->setText(QString::number(calculateVelocity(), 'f', 5));
-    ui->OutputAmplitudeVlaue->setText(QString::number(calculateAmplitude(), 'f', 5));
-    ui->OutputHighValue->setText(QString::number(calculateHeight(), 'f', 5));
+    ui->OutputGrEnValue->setText(QString::number(currentPotentialEnergy, 'f', 6));
+    ui->OutputKinEnValue->setText(QString::number(currentKineticEnergy, 'f', 6));
+    ui->OutputMechEnVlaue->setText(QString::number(totalMechanicalEnergy, 'f', 6));
+    ui->OutputVelosityValue->setText(QString::number(calculateVelocity(), 'f', 6));
+    ui->OutputAmplitudeVlaue->setText(QString::number(calculateAmplitude(), 'f', 6));
+    ui->OutputHighValue->setText(QString::number(calculateHeight(), 'f', 6));
 }
 
 // Обработчики событий кнопок
-
 void MathPendulum::on_ButtonOKLength_clicked() {
     QString Datal = ui->lengthInpEdit->toPlainText();
     bool ok;
@@ -216,8 +236,9 @@ void MathPendulum::on_ButtonOKLength_clicked() {
         return;
     }
 
-    if (newLength > 1000000 || newLength < 0.00001) {
-        QMessageBox::warning(this, "Error", "Value of the length should be in range: [ 0.00001, 1000000 ]!");
+    if (newLength > MAX_LENGTH || newLength < MIN_LENGTH) {
+        QMessageBox::warning(this, "Warning",
+                             QString("Value of the length should be in range: [ %1, %2 ] m!").arg(MIN_LENGTH).arg(MAX_LENGTH));
         return;
     }
 
@@ -248,7 +269,8 @@ void MathPendulum::on_ButtonOKAngle_clicked() {
     double newAngle = DataAngle.toDouble(&ok);
 
     if (!ok || newAngle < -90 || newAngle > 90) {
-        QMessageBox::warning(this, "Error", "Angle should be in range [ -90, 90 ]!");
+        QMessageBox::warning(this, "Warning",
+                             "Angle should be in range [ -90, 90 ]!");
         return;
     }
     angle = newAngle;
@@ -266,8 +288,9 @@ void MathPendulum::on_ButtonOKMass_clicked() {
     bool ok;
     double newMass = DataMass.toDouble(&ok);
 
-    if (!ok || newMass < 0) {
-        QMessageBox::warning(this, "Error", "Mass should be positive value!");
+    if (!ok || newMass < MIN_MASS || newMass > MAX_MASS) {
+        QMessageBox::warning(this, "Warning",
+                             QString("Mass should be in range: [ %1, %2] kg!").arg(MIN_MASS).arg(MAX_MASS));
         return;
     }
     mass = newMass;
@@ -291,7 +314,6 @@ void MathPendulum::on_ButtonOffAirFriction_clicked() {
 }
 
 // Обработчики событий меню
-
 void MathPendulum::on_actionStart_triggered() {
     startAnimation();
 }
@@ -299,13 +321,17 @@ void MathPendulum::on_actionStart_triggered() {
 void MathPendulum::on_actionPause_triggered() {
     if (timer->isActive()) {
         timer->stop();
-    } else {
+        isPaused = true;
+    } else if (isPaused) {
         timer->start(16);
+        isPaused = false;
     }
 }
 
 void MathPendulum::on_actionReset_triggered() {
     // Сброс всех параметров к начальным значениям
+    timer->stop();
+    isPaused = false;
     length = DEFAULT_Y_OFFSET;
     lengthForCalculations = 10.0;
     angle = 0;
@@ -334,7 +360,19 @@ void MathPendulum::on_actionReset_triggered() {
     ui->ButtonOKAirFriction->setStyleSheet("");
     ui->ButtonOffAirFriction->setStyleSheet("background-color: red");
 
-    timer->stop();
+    //timer->stop();
     setInputsEnabled(true);
     updatePendulum();
+}
+void MathPendulum::on_actionExit_triggered()
+{
+    if (timer->isActive()) {
+        timer->stop();
+    }
+
+    MainWindow *mainWindow = new MainWindow();
+    mainWindow->show();
+
+
+    this->close();
 }
