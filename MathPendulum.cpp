@@ -360,7 +360,6 @@ void MathPendulum::on_actionReset_triggered() {
     ui->ButtonOKAirFriction->setStyleSheet("");
     ui->ButtonOffAirFriction->setStyleSheet("background-color: red");
 
-    //timer->stop();
     setInputsEnabled(true);
     updatePendulum();
 }
